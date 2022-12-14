@@ -28,6 +28,8 @@ spec:
       labels:
         app: customer
         version: v1
+      annotations:
+        sidecar.istio.io/inject: 'true'  
     spec:
       containers:
       - env:
