@@ -27,6 +27,8 @@ spec:
       labels:
         app: recommendation
         version: virtualized
+      annotations:
+        sidecar.istio.io/inject: 'true'   
     spec:
       containers:
       - env:

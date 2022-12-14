@@ -1,16 +1,11 @@
-apiVersion: "authentication.istio.io/v1alpha1"
-kind: "Policy"
+apiVersion: "security.istio.io/v1beta1"
+kind: "RequestAuthentication"
 metadata:
   name: "customerjwt"
 spec:
-  targets:
-    - name: customer
-  origins:
-    - jwt:
-        issuer: "testing@secure.istio.io"
-        jwksUri: "https://raw.githubusercontent.com/Sfeir/kubernetes-istio-workshop/master/manifests/istio/security/end-user_authentication/jwks.json"
-        trigger_rules:
-          - excluded_paths:
-            - exact: /health
-            - exact: /actuator/health
-  principalBinding: USE_ORIGIN
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  jwtRules:
+  - issuer: "testing@secure.istio.io"
+    jwksUri: "https://raw.githubusercontent.com/istio/istio/release-1.16/security/tools/jwt/samples/jwks.json"
